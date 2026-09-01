@@ -1,0 +1,21 @@
+{
+  "name": "thomas-haene-personal-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fetch-notion": "node scripts/fetch-notion.mjs"
+  },
+  "dependencies": {
+    "astro": "^4.16.0"
+  },
+  "devDependencies": {
+    "@notionhq/client": "^2.2.15",
+    "notion-to-md": "^3.1.1"
+  }
+}
