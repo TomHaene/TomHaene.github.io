@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "fetch-notion": "node scripts/fetch-notion.mjs"
+    "fetch-notion": "node scripts/fetch-notion.mjs",
+    "publish": "gh workflow run deploy.yml && echo \"Build started. Watch it: gh run watch\""
   },
   "dependencies": {
     "astro": "^4.16.0"
