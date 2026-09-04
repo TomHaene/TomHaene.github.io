@@ -375,3 +375,41 @@ article.prose th {
   nav.site-nav a { font-size: 0.88rem; }
   main { padding: 2rem 0 3.5rem; }
 }
+
+/* --- About page portrait --- */
+.about-header {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-header .eyebrow {
+  margin-bottom: 0.35rem;
+}
+
+.about-header h1 {
+  margin: 0;
+}
+
+.portrait {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 4px solid var(--bg-elevated);
+  box-shadow: 0 0 0 1px var(--border), 0 2px 12px rgba(22, 33, 30, 0.07);
+}
+
+@media (max-width: 560px) {
+  .about-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.15rem;
+  }
+  .portrait {
+    width: 118px;
+    height: 118px;
+  }
+}

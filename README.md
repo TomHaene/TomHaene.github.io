@@ -75,6 +75,25 @@ in `public/blog-images/` at build time, since Notion's own image links expire af
 Note: `src/content/blog/` is wiped and regenerated on every fetch. Don't hand-edit files
 there — edit the posts in Notion instead.
 
+## Publishing a post immediately (`npm run publish`)
+
+The site rebuilds automatically once a day (13:00 UTC), so a post published in Notion can take
+up to 24 hours to appear. To push it live right away:
+
+```bash
+npm run publish
+```
+
+This runs `gh workflow run deploy.yml`, triggering the GitHub Actions build: it pulls your
+Published posts from Notion, rebuilds the site, and deploys it. Takes about two minutes.
+
+Use it after flipping a post's Status to `Published` in Notion. It touches no code and needs no
+commit — it just re-runs the existing build. Requires the `gh` CLI installed and logged in
+(`gh auth login`).
+
+Follow progress with `gh run watch`. When checking the live site, hard-refresh (Cmd+Shift+R) —
+GitHub Pages caches aggressively and a normal reload often shows the old page.
+
 ## Deploying to GitHub Pages
 
 The site deploys from the repo **TomHaene.github.io** and is served at

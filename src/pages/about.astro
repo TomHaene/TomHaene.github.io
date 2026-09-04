@@ -2,42 +2,68 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="About" description="A bit about Thomas Haene — where he's lived, what he's studying, and what he cares about.">
-  <p class="eyebrow">About me</p>
-  <h1>About Me</h1>
+  <div class="about-header">
+    <img
+      class="portrait"
+      src={`${import.meta.env.BASE_URL}thomas-haene.jpg`}
+      alt="Thomas Haene"
+      width="150"
+      height="150"
+    />
+    <div>
+      <p class="eyebrow">About me</p>
+      <h1>About Me</h1>
+    </div>
+  </div>
   <p class="lead">
-    I'm Thomas Haene — a student currently in his 4th year of Electrical Engineering at McGill
-    University.
+    I'm Thomas Haene — a student currently pursuing a Masters of Electrical Engineering at the University of Toronto.
   </p>
 
-  <h2>My Story</h2>
+    <h2>My Story</h2>
   <p>
-    I've lived in three countries: born in Cambridge, UK, then moved to New Brunswick, Canada,
-    for elementary and middle school, then to Abu Dhabi, UAE, for high school. In Abu Dhabi, I
-    studied at the
-    <a href="https://www.nordangliaeducation.com/bis-abu-dhabi/news/2021/08/05/meet-thomas-haene-class-of-2021-ib-diploma-graduate" target="_blank" rel="noopener noreferrer">
+    I've lived in three countries: born in Cambridge, UK, then New Brunswick, Canada, for
+    elementary and middle school, and then Abu Dhabi, UAE, for high school. In Abu Dhabi I
+    attended the
+    <a href="https://www.nordangliaeducation.com/bis-abu-dhabi" target="_blank" rel="noopener noreferrer">
       British International School Abu Dhabi
-    </a>
-    and earned my IGCSE certificate and an IB Diploma with a score of 41/45 (placing me in the
-    top 1% of international students that year). Now, I'm pursuing a Bachelor's in Electrical
-    Engineering at McGill University, ranked 29th globally by QS World University Rankings 2024.
+    </a>, earning my IGCSE certificate and an IB Diploma with a score of 41/45 - placing me in
+    the top 1% of international students that year. The school wrote a
+    <a href="https://www.nordangliaeducation.com/bis-abu-dhabi/news/2021/08/05/meet-thomas-haene-class-of-2021-ib-diploma-graduate" target="_blank" rel="noopener noreferrer">
+      profile piece
+    </a> about me when I graduated.
+  </p>
+  <p>
+    After high school I moved to Montreal to pursue a Bachelor's in Electrical Engineering at
+    McGill University, ranked 30th globally by the QS World University Rankings 2027. I
+    graduated in December 2025, and I'm now completing a Master's at the University of Toronto,
+    finishing in December 2026.
   </p>
 
+  
   <h2>Career Goals &amp; Aspirations</h2>
   <p>
-    While the future may be uncertain, I know that I want to pursue a career in wireless
-    communications, a field that fascinates me. The transmission of information over
-    distances — often at frequencies far beyond human perception — feels almost magical. My
-    goal is to explore the underlying physics and engineering of these systems and use that
-    knowledge to make meaningful contributions to the field.
+    While the future may be uncertain, I know I want to build a career in wireless
+    communications. The transmission of information over vast distances — often at frequencies
+    far beyond human perception — feels almost magical to me, and my goal is to understand the
+    underlying physics and engineering well enough to contribute something meaningful to the
+    field.
+  </p>
+  <p>
+    I'm equally fascinated by space exploration and the work of the world's space agencies. The
+    two interests are closer than they might seem: every image returned from a probe and every
+    command sent to a rover depends on a radio link stretching across millions of kilometres.
+    Combining those passions one day — working on the communication systems that make space
+    missions possible — is exactly the kind of work I'd love to do.
   </p>
 
   <h2>My Hobbies &amp; Interests</h2>
   <p>
-    Outside of the classroom, my main hobbies are basketball, tennis, guitar, and
-    weight-lifting. I've been playing basketball since I was 10, and when I'm not playing, you
-    can often find me working as a referee for McGill intramural basketball games. I also enjoy
-    watching the NBA, with my favorite team being the Dallas Mavericks (I have no connection to
-    Dallas, I just started being a fan since Luka Dončić joined the team). <em>(Edit: I can't
-    believe they traded Luka.)</em>
+    Outside of the classroom, my main hobbies are basketball, weight-lifting, and drawing. I
+    also write and make videos about things that fascinate me — you'll find the articles on the
+    <a href={`${import.meta.env.BASE_URL}blog/`}>blog</a> here, and the videos on my
+    <a href="https://www.youtube.com/@TelecomTomTV" target="_blank" rel="noopener noreferrer">
+      YouTube channel
+    </a>.
   </p>
+
 </Layout>
