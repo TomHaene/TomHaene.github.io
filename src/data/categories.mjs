@@ -1,27 +1,16 @@
 // Blog categories — the single place to define them.
 //
-// To add or rename a category, edit this list. The `id` is what gets stored in each post's
-// frontmatter; `label` is what visitors see AND what you pick in Notion's "Category" property
-// (the fetch script matches on label or id, case-insensitively).
+// To add or rename a category, edit this list AND the matching option in the Notion
+// "Category" property. `label` must match the Notion option name (the fetch script matches
+// on label or id, case-insensitively). `id` is what gets stored in each post's frontmatter.
 //
-// Posts with no category (or an unrecognised one) fall into `defaultCategory`.
+// Posts with no category (or an unrecognised one) still show under "All", just without a badge.
 
 export const categories = [
-  {
-    id: 'weekly',
-    label: 'Weekly Space Industry Updates',
-    short: 'Weekly Updates',
-    description: 'A short, opinionated look at what mattered in the space industry last week.',
-  },
-  {
-    id: 'topics',
-    label: 'Topics I find interesting',
-    short: 'Topics',
-    description: 'Longer pieces on whatever in engineering, wireless and space has caught my attention.',
-  },
+  { id: 'space-industry', label: 'Space Industry' },
+  { id: 'communications-theory', label: 'Communications Theory' },
+  { id: 'mathematics', label: 'Mathematics' },
 ];
-
-export const defaultCategory = 'topics';
 
 /** Resolve a Notion select name (or an id) to a category id, or null if unknown. */
 export function resolveCategoryId(name) {

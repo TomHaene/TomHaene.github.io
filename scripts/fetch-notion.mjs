@@ -10,7 +10,6 @@
 //   Slug        (rich text)   - used as the URL: /blog/<slug>/
 //   Date        (date)
 //   Description (rich text)   - optional, used for previews/SEO
-//   Tags        (multi-select) - optional
 //   Category    (select)      - optional; must match a label in src/data/categories.mjs
 //   Status      (select)      - only pages with status "Published" are pulled
 //
@@ -23,7 +22,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import https from 'node:https';
 import { createWriteStream } from 'node:fs';
-import { defaultCategory, resolveCategoryId } from '../src/data/categories.mjs';
+import { resolveCategoryId } from '../src/data/categories.mjs';
 
 // Load .env for local runs (Node 20.6+). In CI the vars come from GitHub Actions secrets.
 try {
@@ -143,11 +142,10 @@ async function main() {
     const slug = explicitSlug ? slugify(explicitSlug) : slugify(title);
     const date = props.Date?.date?.start || new Date().toISOString().slice(0, 10);
     const description = getPlainText(props.Description?.rich_text);
-    const tags = (props.Tags?.multi_select || []).map((t) => t.name);
     const categoryName = props.Category?.select?.name;
-    const category = resolveCategoryId(categoryName) || defaultCategory;
-    if (categoryName && !resolveCategoryId(categoryName)) {
-      console.warn(`  ! Unknown category "${categoryName}" on "${title}" — using "${defaultCategory}".`);
+    const category = resolveCategoryId(categoryName);
+    if (categoryName && !category) {
+      console.warn(`  ! Unknown category "${categoryName}" on "${title}" — add it to src/data/categories.mjs.`);
     }
 
     console.log(`  -> ${title} (${slug})`);
@@ -162,8 +160,7 @@ async function main() {
       `title: ${JSON.stringify(title)}`,
       `description: ${JSON.stringify(description)}`,
       `date: ${date}`,
-      `tags: [${tags.map((t) => JSON.stringify(t)).join(', ')}]`,
-      `category: ${JSON.stringify(category)}`,
+      ...(category ? [`category: ${JSON.stringify(category)}`] : []),
       `notionId: ${JSON.stringify(page.id)}`,
       '---',
       '',

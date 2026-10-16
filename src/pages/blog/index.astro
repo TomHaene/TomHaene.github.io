@@ -1,21 +1,21 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { categories, defaultCategory } from '../../data/categories.mjs';
+import { categories } from '../../data/categories.mjs';
 
 const base = import.meta.env.BASE_URL;
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-const validIds = new Set(categories.map((c) => c.id));
-const categoryOf = (post) => (validIds.has(post.data.category) ? post.data.category : defaultCategory);
-const countFor = (id) => posts.filter((p) => categoryOf(p) === id).length;
+const byId = new Map(categories.map((c) => [c.id, c]));
+const categoryOf = (post) => byId.get(post.data.category) ?? null;
+const countFor = (id) => posts.filter((p) => categoryOf(p)?.id === id).length;
 ---
 <Layout title="Blog" description="Posts by Thomas Haene, written in Notion and published here.">
   <p class="eyebrow">Writing</p>
   <h1>Blog</h1>
-  <p class="lead">Weekly takes on the space industry, plus longer pieces on whatever else has caught my attention.</p>
+  <p class="lead">Thoughts on engineering, wireless communications, and whatever else is on my mind.</p>
 
   <div class="category-toggle" role="group" aria-label="Filter posts by category" data-category-toggle>
     <button type="button" class="category-btn" data-category="all" aria-pressed="true">
@@ -28,20 +28,17 @@ const countFor = (id) => posts.filter((p) => categoryOf(p) === id).length;
     ))}
   </div>
 
-  <p class="category-description" data-category-description aria-live="polite"></p>
-
   {posts.length === 0 && <p>No posts yet — check back soon.</p>}
 
   <ul class="post-list" data-post-list>
     {posts.map((post) => {
-      const cat = categories.find((c) => c.id === categoryOf(post));
+      const cat = categoryOf(post);
       return (
-        <li data-category={cat.id}>
+        <li data-category={cat?.id ?? ''}>
           <h3><a href={`${base}blog/${post.slug}/`}>{post.data.title}</a></h3>
           <p class="post-meta">
-            <span class="category-badge">{cat.short}</span>
+            {cat && <span class="category-badge">{cat.label}</span>}
             {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            {post.data.tags.length > 0 && ` · ${post.data.tags.join(', ')}`}
           </p>
           {post.data.description && <p>{post.data.description}</p>}
         </li>
@@ -51,11 +48,10 @@ const countFor = (id) => posts.filter((p) => categoryOf(p) === id).length;
 
   <p class="category-empty" data-category-empty hidden>Nothing here yet — check back soon.</p>
 
-  <script is:inline define:vars={{ descriptions: Object.fromEntries(categories.map((c) => [c.id, c.description])) }}>
+  <script is:inline>
     (function () {
       var buttons = document.querySelectorAll('[data-category-toggle] .category-btn');
       var items = document.querySelectorAll('[data-post-list] > li');
-      var desc = document.querySelector('[data-category-description]');
       var empty = document.querySelector('[data-category-empty]');
 
       function apply(id, updateUrl) {
@@ -68,7 +64,6 @@ const countFor = (id) => posts.filter((p) => categoryOf(p) === id).length;
         buttons.forEach(function (b) {
           b.setAttribute('aria-pressed', String(b.dataset.category === id));
         });
-        desc.textContent = descriptions[id] || '';
         empty.hidden = shown !== 0 || items.length === 0;
         if (updateUrl) {
           var url = new URL(window.location.href);

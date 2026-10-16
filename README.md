@@ -35,7 +35,7 @@ It has the exact properties the fetch script expects:
 | `Slug`        | Text         | URL path — `my-first-post` becomes `/blog/my-first-post/`        |
 | `Date`        | Date         | Publication date shown on the site                              |
 | `Description` | Text         | Short summary for previews and SEO                              |
-| `Tags`        | Multi-select | Optional topic tags                                             |
+| `Category`    | Select       | Blog section: Space Industry, Communications Theory or Mathematics (see `src/data/categories.mjs`) |
 | `Status`      | Select       | Only `Published` posts are pulled in; `Draft` stays private      |
 
 It's already seeded with two test posts: one **Published** ("Hello World: Testing the Pipeline")

@@ -457,13 +457,6 @@ article.prose th {
   opacity: 0.7;
 }
 
-.category-description {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  min-height: 1.4em;
-  margin: 0 0 0.5rem;
-}
-
 .category-badge {
   display: inline-block;
   color: var(--accent);
